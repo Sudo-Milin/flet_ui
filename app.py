@@ -16,9 +16,6 @@ from controls.content import MainContent
 
 
 def FletUI(page: Page):
-    def _copy_control_data(e):
-        page.set_clipboard(e.control.data)
-
     def PageResize(e):
         if page.width <= 760:
             # NAVBAR FUNCTIONS: show/hide the different navbars (sidebar and top bar)
