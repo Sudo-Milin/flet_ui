@@ -3,11 +3,8 @@ from flet import (
     Page,
     Container,
     Column,
-    padding,
     LinearGradient,
-    alignment,
     Row,
-    border,
 )
 
 from controls.navigation import Navigation
