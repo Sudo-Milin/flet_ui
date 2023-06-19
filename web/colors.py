@@ -108,7 +108,7 @@ class FxView(ft.View):
         self,
         page: ft.Page,
         docs: dict,
-        route="",  # set your routes here ...
+        route="/colors",  # set your routes here ...
         bgcolor="#23262d",
         padding=0,
     ) -> None:
