@@ -22,7 +22,6 @@ bw_row = ft.ResponsiveRow(
     run_spacing=10,
     alignment="center",
     vertical_alignment="center",
-    controls=[ft.Text("Black & White", text_align="center")],
 )
 
 for color in bw_pallet:
@@ -36,6 +35,8 @@ for color in bw_pallet:
         on_click=lambda e: e.page.set_clipboard(e.control.data),
     )
     bw_row.controls.append(container)
+
+# all colors
 
 
 class FxView(ft.View):
@@ -80,6 +81,8 @@ class FxView(ft.View):
             ft.Divider(height=35, color="transparent"),
             ft.Divider(height=25, color="transparent"),
             # start your layout design here ...
+            fxType.subtitle(f"Black & White", key=1),
+            ft.Divider(height=5, color="transparent"),
             bw_row,
             # end your layout design here ...
             ft.Divider(height=15, color="transparent"),
