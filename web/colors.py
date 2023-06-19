@@ -26,7 +26,7 @@ bw_row = ft.ResponsiveRow(
 
 for color in bw_pallet:
     container = ft.Container(
-        border_radius=10,
+        border_radius=6,
         aspect_ratio=1.25,
         bgcolor=color,
         col={"xs": 3.175, "sm": 2.25, "md": 2.25, "lg": 1, "xl": 1},
@@ -80,7 +80,7 @@ for color_name in color_names:
 
 for i, list_of_color in enumerate(color_list):
     row = ft.ResponsiveRow(
-        run_spacing=10,
+        run_spacing=6,
         alignment="center",
         vertical_alignment="center",
         controls=[fxType.subtitle(f"{color_names[i].capitalize()}")],
@@ -89,7 +89,7 @@ for i, list_of_color in enumerate(color_list):
 
     for each_color in list_of_color:
         color_container = ft.Container(
-            border_radius=10,
+            border_radius=6,
             aspect_ratio=1.25,
             col={"xs": 3.175, "sm": 2.25, "md": 2.25, "lg": 1, "xl": 1},
             bgcolor=each_color,
