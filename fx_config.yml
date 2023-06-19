@@ -9,3 +9,5 @@ theme:
 
 navigation:
   - Start: "installation.py"
+  - Colors: "colors.py"
+  - Buttons: "buttons.py"
