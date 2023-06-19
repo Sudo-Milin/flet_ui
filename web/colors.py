@@ -36,7 +36,47 @@ for color in bw_pallet:
     )
     bw_row.controls.append(container)
 
-# all colors
+# rest of the colors
+color_list: list = []
+color_names: list = [
+    "red",
+    "pink",
+    "purple",
+    "deeppurple",
+    "indigo",
+    "lightblue",
+    "cyan",
+    "teal",
+    "blue",
+    "green",
+    "lightgreen",
+    "lime",
+    "yellow",
+    "amber",
+    "orange",
+    "deeporange",
+    "brown",
+    "bluegrey",
+]
+
+color_numbers: list = [
+    "50",
+    "100",
+    "200",
+    "300",
+    "400",
+    "500",
+    "600",
+    "700",
+    "800",
+    "900",
+]
+
+for color_name in color_names:
+    temp_list: list = []
+    for color_number in color_numbers:
+        temp_list.append(f"{color_name}{color_number}")
+    color_list.append(temp_list)
 
 
 class FxView(ft.View):
@@ -83,7 +123,7 @@ class FxView(ft.View):
             # start your layout design here ...
             fxType.subtitle(f"Black & White", key=1),
             ft.Divider(height=5, color="transparent"),
-            bw_row,
+            ft.Container(content=bw_row, alignment=ft.alignment.center),
             # end your layout design here ...
             ft.Divider(height=15, color="transparent"),
         ]
