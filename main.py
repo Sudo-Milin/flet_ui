@@ -45,7 +45,6 @@ def main(page: ft.Page):
 
     # PLACEHOLDER VIEW ROUTE >>>>
     page.go("/installation")
-    page.update()
 
 
 if __name__ == "__main__":
