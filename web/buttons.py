@@ -12,16 +12,38 @@ Buttons in graphical user interfaces (GUI) serve as interactive elements that al
 class ButtonOne(ft.Container):
     def __init__(
         self,
-        width: int,
+        padding=ft.padding.only(left=25, right=25),
         height=45,
         bgcolor="cyan600",
-        border_raidus=8,
+        border_radius=6,
+        alignment=ft.alignment.center,
+        clip_behavior=ft.ClipBehavior.HARD_EDGE,
     ):
         super().__init__(
-            width=width,
+            padding=padding,
             height=height,
             bgcolor=bgcolor,
-            border_raidus=border_radius,
+            border_radius=border_radius,
+            alignment=alignment,
+            clip_behavior=clip_behavior,
+        )
+
+        self.text = ft.Text(
+            "Send",
+            size=15,
+            weight="w800",
+        )
+
+        self.button = ft.Icon(
+            name=ft.icons.SEND_SHARP,
+            size=15,
+            color="white",
+        )
+
+        self.content = ft.Row(
+            alignment="center",
+            vertical_alignment="center",
+            controls=[self.button, self.text],
         )
 
 
@@ -67,8 +89,10 @@ class FxView(ft.View):
             ft.Divider(height=35, color="transparent"),
             ft.Divider(height=25, color="transparent"),
             # start your layout design here ...
-            fxType.heading(f"Button Intro Here"),
+            fxType.heading(f"Flet Button UI"),
             fxType.paragraph(intro),
+            ft.Divider(height=5, color="transparent"),
+            ft.Row(controls=[ButtonOne()]),
             # end your layout design here ...
             ft.Divider(height=15, color="transparent"),
         ]
