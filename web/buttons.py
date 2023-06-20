@@ -12,7 +12,7 @@ Buttons in graphical user interfaces (GUI) serve as interactive elements that al
 class ButtonOne(ft.Container):
     def __init__(
         self,
-        padding=ft.padding.only(left=25, right=25),
+        padding=ft.padding.only(left=35, right=35),
         height=45,
         bgcolor="cyan600",
         border_radius=6,
@@ -42,6 +42,8 @@ class ButtonOne(ft.Container):
             name=ft.icons.SEND_SHARP,
             size=15,
             color="white",
+            offset=ft.transform.Offset(0, 0),
+            animate_offset=ft.Animation(400, "ease"),
         )
 
         self.content = ft.Row(
@@ -57,10 +59,15 @@ class ButtonOne(ft.Container):
             self.text.opacity = 0
             self.text.offset = ft.transform.Offset(1, 0)
 
+            self.button.offset = ft.transform.Offset(2, 0)
+
         else:
             self.text.opacity = 1
             self.text.offset = ft.transform.Offset(0, 0)
 
+            self.button.offset = ft.transform.Offset(0, 0)
+
+        self.button.update()
         self.text.update()
 
 
