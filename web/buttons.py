@@ -1,3 +1,4 @@
+import inspect
 import time
 import flet as ft
 from base import FxControls
@@ -10,12 +11,21 @@ Buttons in graphical user interfaces (GUI) serve as interactive elements that al
 """
 
 
+def add_container_shadow():
+    return ft.BoxShadow(
+        spread_radius=4,
+        blur_radius=8,
+        color=ft.colors.with_opacity(0.25, "black"),
+        offset=ft.Offset(4, 4),
+    )
+
+
 class ButtonOne(ft.Container):
     def __init__(
         self,
         padding=ft.padding.only(left=35, right=35),
         height=45,
-        bgcolor="cyan600",
+        bgcolor="teal",
         border_radius=6,
         alignment=ft.alignment.center,
         clip_behavior=ft.ClipBehavior.HARD_EDGE,
@@ -57,7 +67,11 @@ class ButtonOne(ft.Container):
             controls=[self.button, self.text],
         )
 
+        self.on_click = lambda e: self.__str__(e)
         self.on_hover = lambda e: self.animate_button(e)
+
+    def __str__(self, e) -> None:
+        e.page.set_clipboard(inspect.getsource(type(self)))
 
     def hover_up(self):
         self.button.offset = ft.transform.Offset(2, 0.1)
@@ -152,9 +166,10 @@ class FxView(ft.View):
             fxType.paragraph(intro),
             ft.Divider(height=5, color="transparent"),
             ft.Container(
-                border=ft.border.all(1, "teal"),
+                border=ft.border.all(1, "white10"),
                 border_radius=6,
                 padding=ft.padding.all(20),
+                shadow=add_container_shadow(),
                 content=ft.Row(alignment="center", controls=[ButtonOne()]),
             ),
             # end your layout design here ...
