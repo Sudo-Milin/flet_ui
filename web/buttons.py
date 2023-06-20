@@ -1,8 +1,9 @@
+import time
 import flet as ft
 from base import FxControls
 from components import typography as fxType
 from components import block as fxCode
-
+import asyncio
 
 intro = """
 Buttons in graphical user interfaces (GUI) serve as interactive elements that allow users to trigger actions or perform specific tasks. They enhance the usability and interactivity of GUIs, making software applications and websites more user-friendly and efficient.
@@ -18,6 +19,7 @@ class ButtonOne(ft.Container):
         border_radius=6,
         alignment=ft.alignment.center,
         clip_behavior=ft.ClipBehavior.HARD_EDGE,
+        ink=True,
     ):
         super().__init__(
             padding=padding,
@@ -26,7 +28,10 @@ class ButtonOne(ft.Container):
             border_radius=border_radius,
             alignment=alignment,
             clip_behavior=clip_behavior,
+            ink=ink,
         )
+
+        self.isPlaying = False
 
         self.text = ft.Text(
             "Send",
@@ -35,7 +40,7 @@ class ButtonOne(ft.Container):
             opacity=1,
             animate_opacity=ft.Animation(400, "ease"),
             offset=ft.transform.Offset(0, 0),
-            animate_offset=ft.Animation(400, "ease"),
+            animate_offset=ft.Animation(900, "ease"),
         )
 
         self.button = ft.Icon(
@@ -43,7 +48,7 @@ class ButtonOne(ft.Container):
             size=15,
             color="white",
             offset=ft.transform.Offset(0, 0),
-            animate_offset=ft.Animation(400, "ease"),
+            animate_offset=ft.Animation(900, "ease"),
         )
 
         self.content = ft.Row(
@@ -54,21 +59,51 @@ class ButtonOne(ft.Container):
 
         self.on_hover = lambda e: self.animate_button(e)
 
+    def hover_up(self):
+        self.button.offset = ft.transform.Offset(2, 0.1)
+        self.button.update()
+        time.sleep(0.9)
+
+    def hover_down(self):
+        self.button.offset = ft.transform.Offset(2, -0.1)
+        self.button.update()
+        time.sleep(0.9)
+
+    def hover_none(self):
+        self.button.offset = ft.transform.Offset(0, 0)
+        self.button.update()
+
     def animate_button(self, e):
         if e.data == "true":
             self.text.opacity = 0
             self.text.offset = ft.transform.Offset(1, 0)
 
             self.button.offset = ft.transform.Offset(2, 0)
+            self.isPlaying = True
+
+            self.button.update()
+            self.text.update()
 
         else:
+            self.button.offset = ft.transform.Offset(0, 0)
+            self.isPlaying = False
+
             self.text.opacity = 1
             self.text.offset = ft.transform.Offset(0, 0)
 
-            self.button.offset = ft.transform.Offset(0, 0)
+            self.button.update()
 
-        self.button.update()
         self.text.update()
+
+        while self.isPlaying == True:
+            self.hover_up()
+            if self.isPlaying == False:
+                self.hover_none()
+                break
+            self.hover_down()
+            if self.isPlaying == False:
+                self.hover_none()
+                break
 
 
 class FxView(ft.View):
