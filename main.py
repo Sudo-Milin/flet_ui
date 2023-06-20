@@ -10,6 +10,9 @@ with open("fx_config.yml", "r") as file:
 
 
 def main(page: ft.Page):
+    # page dimension TEMP SETTINGS ...
+    page.window_width = 950
+
     # Web theme ...
     theme = ft.Theme(
         scrollbar_theme=ft.ScrollbarTheme(
@@ -42,9 +45,6 @@ def main(page: ft.Page):
     # Set page responsive layout based on page width ...
     for view in page.views[1:]:
         view.fx_dynamics(event=None)
-
-    # PLACEHOLDER VIEW ROUTE >>>>
-    page.go("/installation")
 
 
 if __name__ == "__main__":

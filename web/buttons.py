@@ -3,7 +3,7 @@ import flet as ft
 from base import FxControls
 from components import typography as fxType
 from components import block as fxCode
-import asyncio
+
 
 intro = """
 Buttons in graphical user interfaces (GUI) serve as interactive elements that allow users to trigger actions or perform specific tasks. They enhance the usability and interactivity of GUIs, making software applications and websites more user-friendly and efficient.
@@ -151,7 +151,12 @@ class FxView(ft.View):
             fxType.heading(f"Flet Button UI"),
             fxType.paragraph(intro),
             ft.Divider(height=5, color="transparent"),
-            ft.Row(controls=[ButtonOne()]),
+            ft.Container(
+                border=ft.border.all(1, "teal"),
+                border_radius=6,
+                padding=ft.padding.all(20),
+                content=ft.Row(alignment="center", controls=[ButtonOne()]),
+            ),
             # end your layout design here ...
             ft.Divider(height=15, color="transparent"),
         ]
