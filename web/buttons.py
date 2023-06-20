@@ -4,12 +4,33 @@ from components import typography as fxType
 from components import block as fxCode
 
 
+intro = """
+Buttons in graphical user interfaces (GUI) serve as interactive elements that allow users to trigger actions or perform specific tasks. They enhance the usability and interactivity of GUIs, making software applications and websites more user-friendly and efficient.
+"""
+
+
+class ButtonOne(ft.Container):
+    def __init__(
+        self,
+        width: int,
+        height=45,
+        bgcolor="cyan600",
+        border_raidus=8,
+    ):
+        super().__init__(
+            width=width,
+            height=height,
+            bgcolor=bgcolor,
+            border_raidus=border_radius,
+        )
+
+
 class FxView(ft.View):
     def __init__(
         self,
         page: ft.Page,
         docs: dict,
-        route="",  # set your routes here ...
+        route="/buttons",  # set your routes here ...
         bgcolor="#23262d",
         padding=0,
     ) -> None:
@@ -46,6 +67,8 @@ class FxView(ft.View):
             ft.Divider(height=35, color="transparent"),
             ft.Divider(height=25, color="transparent"),
             # start your layout design here ...
+            fxType.heading(f"Button Intro Here"),
+            fxType.paragraph(intro),
             # end your layout design here ...
             ft.Divider(height=15, color="transparent"),
         ]
