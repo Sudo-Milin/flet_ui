@@ -34,6 +34,8 @@ class ButtonOne(ft.Container):
             weight="w800",
             opacity=1,
             animate_opacity=ft.Animation(400, "ease"),
+            offset=ft.transform.Offset(0, 0),
+            animate_offset=ft.Animation(400, "ease"),
         )
 
         self.button = ft.Icon(
@@ -53,9 +55,11 @@ class ButtonOne(ft.Container):
     def animate_button(self, e):
         if e.data == "true":
             self.text.opacity = 0
+            self.text.offset = ft.transform.Offset(1, 0)
 
         else:
             self.text.opacity = 1
+            self.text.offset = ft.transform.Offset(0, 0)
 
         self.text.update()
 
