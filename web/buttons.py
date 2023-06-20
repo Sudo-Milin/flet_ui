@@ -137,9 +137,9 @@ class FxView(ft.View):
     # Method: Create your side rails(fx_right panel) here by passing in strings...
     def fx_rail(self) -> list:
         return [
-            "Installation",
-            "Application Setup",
-            "Configuration",
+            "Button One",
+            "Button Two",
+            "Button Three",
         ]
 
     # Method: Create your layout here. Create your UI inside this list ...
