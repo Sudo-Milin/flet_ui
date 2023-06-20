@@ -32,6 +32,8 @@ class ButtonOne(ft.Container):
             "Send",
             size=15,
             weight="w800",
+            opacity=1,
+            animate_opacity=ft.Animation(400, "ease"),
         )
 
         self.button = ft.Icon(
@@ -45,6 +47,17 @@ class ButtonOne(ft.Container):
             vertical_alignment="center",
             controls=[self.button, self.text],
         )
+
+        self.on_hover = lambda e: self.animate_button(e)
+
+    def animate_button(self, e):
+        if e.data == "true":
+            self.text.opacity = 0
+
+        else:
+            self.text.opacity = 1
+
+        self.text.update()
 
 
 class FxView(ft.View):
