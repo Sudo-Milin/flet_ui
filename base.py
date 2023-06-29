@@ -55,7 +55,7 @@ class FxControls(ft.UserControl):
     # Method: Responsive method to set the UI for 'mobile/tablet' screens ...
     def set_application_to_mobile(self):
         self.set_fx_max_nav(0, False)
-        self.set_fx_left(False)
+        # self.set_fx_left(False)
         self.set_fx_right(False)
 
         self.set_fx_min_nav(True)
@@ -73,7 +73,7 @@ class FxControls(ft.UserControl):
 
     # Method: Responsive method to set the UI for 'desktop' screens ...
     def set_application_to_desktop(self):
-        self.set_fx_left(True)
+        # self.set_fx_left(True)
         self.set_fx_right(True)
         self.set_fx_max_nav(1, True)
 
@@ -151,7 +151,7 @@ class FxControls(ft.UserControl):
         self.fx_drawer.update()
 
     def build(self):
-        self.fx_row.controls = [self.fx_left, self.fx_middle, self.fx_right]
+        self.fx_row.controls = [self.fx_middle, self.fx_right]
         self.fx_stack.controls = [self.fx_row, self.fx_header, self.fx_drawer]
 
         return self.fx_stack
