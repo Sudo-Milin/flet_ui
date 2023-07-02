@@ -1,78 +1,51 @@
-from flet import (
-    flet,
-    Page,
-    Container,
-    Column,
-    LinearGradient,
-    Row,
-)
-
-from controls.navigation import Navigation
-from controls.landing import Landing
-from controls.content import MainContent
+import importlib.util
+import flet as ft
+import os
+import yaml
 
 
-def FletUI(page: Page):
-    def PageResize(e):
-        if page.width <= 760:
-            # NAVBAR FUNCTIONS: show/hide the different navbars (sidebar and top bar)
-            _main_content_area.controls[0].controls[1].visible = False
-            _main_content_area.controls[0].controls[1].update()
+# Open the fx config YAML file and create a python dict object ...
+with open("fx_config.yml", "r") as file:
+    docs: dict = yaml.safe_load(file)
 
-            # PADDING: show/hide the far right padding area to center the main content area
-            _main_content_area.controls[0].controls[3].visible = False
-            _main_content_area.controls[0].controls[3].update()
 
-            # NAVBAR FUNCTIONS: show/hide the different navbars (sidebar and top bar)
-            _navigation.controls[0].visible = True
-            _navigation.update()
+def main(page: ft.Page):
+    # page dimension TEMP SETTINGS ...
+    page.window_width = 950
 
-        else:
-            _main_content_area.controls[0].controls[1].visible = True
-            _main_content_area.controls[0].controls[1].update()
-
-            _main_content_area.controls[0].controls[3].visible = True
-            _main_content_area.controls[0].controls[3].update()
-
-            _navigation.controls[0].visible = False
-            _navigation.update()
-
-    # COLUMN: add other controls to this main column
-    _main_column_ = Column(scroll="auto")
-
-    # NAVIGATION: pop-up navigation buttons when width is SMALL
-    _navigation = Navigation(False)
-
-    # LANDING: TITLE and SUBTITLE of the LANDING PAGE
-    _landing = Landing()
-
-    # MAIN CONTENT AREA: serves the main area with all the generated ocntent plus routing
-    _main_content_area = MainContent()
-
-    # MAIN COLUMN: append the above modules to the main column to display accordingly
-    _main_column_.controls.append(_navigation)
-    _main_column_.controls.append(_landing)
-    _main_column_.controls.append(_main_content_area)
-
-    # MAIN CONTAINER: returns the main container for all other controls. Includes the custom background.
-    _main_container_ = Container(
-        margin=-10,
-        height=page.height,
-        gradient=LinearGradient(
-            begin=alignment.bottom_left,
-            end=alignment.top_right,
-            colors=["#1f2937", "#111827"],
+    # Web theme ...
+    theme = ft.Theme(
+        scrollbar_theme=ft.ScrollbarTheme(
+            thickness=4,
+            radius=10,
+            main_axis_margin=5,
+            cross_axis_margin=-10,
         ),
-        expand=True,
-        content=_main_column_,
     )
+    theme.page_transitions.macos = ft.PageTransitionTheme.NONE
+    page.theme = theme
 
-    # MAIN ROOT: setting up the MAIN PAGE
-    page.title = "Flet UI"
-    page.add(_main_container_)
-    page.on_resize = PageResize
+    # Set application routing system ...
+    router = {}
+    for file in os.listdir("web"):
+        if os.path.isfile(f"web/{file}"):
+            filename = os.path.splitext(file)[0]
+            filepath = os.path.join("web", file)
+            router["/" + filename] = importlib.util.spec_from_file_location(
+                filename, filepath
+            )
+
+    # Load application views ...
+    for key, __ in router.items():
+        page.views.append(router[key].loader.load_module().FxView(page, docs))
+
+    page.data = router
     page.update()
+
+    # Set page responsive layout based on page width ...
+    for view in page.views[1:]:
+        view.fx_dynamics(event=None)
 
 
 if __name__ == "__main__":
-    flet.app(target=FletUI)
+    ft.flet.app(target=main)
